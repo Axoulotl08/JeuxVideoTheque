@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Modifier un jeu | {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div>
+        {{ form_start(gameModify) }}
+        {{ form_widget(gameModify) }}
+        <button>Modifier !</button>
+        {{ form_end(gameModify) }}
+    </div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello GameController!{% endblock %}
+
+{% block body %}
+
+    <table>
+        <thead>
+        <td>Nom de la console</td>
+        <td>Nombre de jeux</td>
+        </thead>
+        {% for nbGame in nbGames %}
+            <tr>
+                <td>{{ nbGame.name }}</td>
+                <td>{{ nbGame.number }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Ajouter une console | {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    {{ form_start(consoleForm) }}
+    {{ form_widget(consoleForm) }}
+    <button>Ajouter</button>
+    {{ form_end(consoleForm) }}
+{% endblock %}

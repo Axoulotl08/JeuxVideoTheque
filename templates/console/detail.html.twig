@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+Détail de la console | {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div>
+        <div class="blockConsole">
+            <span class="labelConsole">Nom : </span>
+            <span class="infoConsole">{{ console.name }}</span>
+        </div>
+        <div class="blockConsole">
+            <span class="labelConsole">Fabriquant : </span>
+            <span class="infoConsole">{{ console.constructor }}</span>
+        </div>
+        <div class="blockConsole">
+            <span class="labelConsole">Date de commercialisation : </span>
+            <span class="infoConsole">{{ console.launchDate|date("d-m-Y")}}</span>
+        </div>
+{% endblock %}

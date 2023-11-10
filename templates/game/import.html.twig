@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Ajouter un jeu | {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div>
+        {{ form_start(formCSV) }}
+        {{ form_widget(formCSV) }}
+        <button>Ajouter !</button>
+        {{ form_end(formCSV) }}
+    </div>
+{% endblock %}

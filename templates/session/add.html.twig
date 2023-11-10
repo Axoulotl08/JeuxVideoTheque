@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Ajouter une session | {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    {{ form_start(sessionForm) }}
+    {{ form_widget(sessionForm) }}
+    <button>Ajouter la session !</button>
+    {{ form_end(sessionForm) }}
+{% endblock %}

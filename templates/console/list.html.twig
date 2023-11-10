@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section>
+        {% for console in consoles %}
+            {{ console.name }}
+            : {{ console.constructor }}, sortie le {{ console.launchDate|date('d-m-Y') }}
+            <br>
+        {% endfor %}
+    </section>
+{% endblock %}
+
+{% block title %}
+    Liste des consoles | {{ parent() }}
+{% endblock %}

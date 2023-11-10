@@ -1,0 +1,156 @@
+body{
+    background: linear-gradient(#000000, #132135);
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center center;
+    color: #EEE;
+    font-family: 'Crimson Text', serif;
+}
+
+.jeu-list {
+    display: grid;
+    grid-gap: 150px;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+}
+
+.flip-card {
+    background-color: transparent;
+    width: 300px;
+    height: 300px;
+    perspective: 1000px;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.flip-card-front {
+    background-color: black;
+    color: black;
+}
+
+.flip-card-back {
+    background-color: #2980b9;
+    color: white;
+    transform: rotateY(180deg);
+}
+
+body > .container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.image_jeu{
+    height: 300px;
+    width: 250px;
+}
+
+.image_console{
+    height: 300px;
+    width: 300px;
+}
+
+main {
+    flex: 1;
+}
+
+.container {
+    max-width: 1500px;
+    margin: auto;
+    padding: 5px;
+}
+
+.navBackground{
+    background-color: #000000;
+    color: white;
+}
+
+.white{
+    color: white;
+}
+
+/* affichage info jeu/console */
+
+.infoJeu, .infoConsole
+{
+    display: inline-block;
+    width: 45%;
+    text-align: left;
+}
+
+.labelJeu, .labelConsole
+{
+    display: inline-block;
+    width: 35%;
+    text-align: left;
+}
+
+.blockJeu, .blockConsole{
+    position: relative;
+    margin: auto;
+    text-align: center;
+    padding: 10px;
+}
+
+
+.ajout-jeu{
+    display: inline;
+}
+
+th, td{
+    border: 1px solid;
+    padding: 10px;
+    border-collapse: collapse;
+}
+
+.navSticky{
+    position: sticky;
+}
+
+/* affichage de la navbar
+.navbar{
+    display: inline-block;
+}
+
+.lien{
+    margin: 15px;
+    position: absolute;
+    right:0;
+}
+
+.dropDownContent{
+    display: none;
+    width: fit-content;
+    text-align: right;
+    padding:10px;
+    box-shadow:5px 5px 10px black;
+    z-index: 1;
+}
+
+.dropdown:hover .dropDownContent {
+    display: block;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}*/

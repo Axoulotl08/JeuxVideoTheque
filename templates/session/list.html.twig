@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello GameController!{% endblock %}
+
+{% block body %}
+
+    <table>
+        <thead>
+        <td>Date de session</td>
+        <td>Console</td>
+        <td>Jeu</td>
+        <td>Durée</td>
+        </thead>
+        {% for session in sessions %}
+            <tr>
+                <td>{{ session.date| date('d-m-Y') }}</td>
+                <td><a href="{{ path('game_id', {id:session.game.id}) }}">{{ session.game.name }}</a></td>
+                <td>{{ session.game.console.name }}</td>
+                <td>{{ session.sessionTime|stringTime }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

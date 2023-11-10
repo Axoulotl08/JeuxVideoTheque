@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello GameController!{% endblock %}
+
+{% block body %}
+    <div>
+        {{ form_start(formFilter) }}
+        {{ form_widget(formFilter) }}
+        <button>Trier</button>
+        {{ form_end(formFilter) }}
+    </div>
+    <div>Nombre jeux trouvés : {{ nbGame }}</div>
+    <table>
+        <thead>
+            <td>Nom</td>
+            <td>Support</td>
+            <td>Etat</td>
+            <td>Physique</td>
+            <td>Collector</td>
+            <td>Trophées</td>
+            <td>Date de sortie</td>
+            <td>Date de début</td>
+            <td>Date de fin</td>
+            <td>Temps de jeu</td>
+        </thead>
+        {% for game in games %}
+            <tr>
+                <td><a href="{{ path('game_id', {id:game.id}) }}">{{ game.name }}</a></td>
+                <td>{{ game.console.name }}</td>
+                <td>{{ game.state.name }}</td>
+                {% if game.boxGame == 1 %}
+                    <td><i class="fa-solid fa-compact-disc"></i></td>
+                {% else %}
+                    <td><i class="fa-solid fa-x"></i></td>
+                {% endif %}
+                {% if game.collectorVersion == 1 %}
+                    <td><i class="fa-solid fa-check"></i></td>
+                {% else %}
+                    <td><i class="fa-solid fa-x"></i></td>
+                {% endif %}
+                {% if game.trophyPourcentage != null %}
+                    {% if game.trophyPourcentage == 100 %}
+                        <td><i class="fa-solid fa-trophy"></i></td>
+                    {% else %}
+                        <td>{{ game.trophyPourcentage }}</td>
+                    {% endif %}
+                {% else %}
+                    <td> ...</td>
+                {% endif %}
+                <td>{{ game.saleDate| date('d-m-Y') }}</td>
+                {% if game.startDate != null %}
+                    <td>{{ game.startDate|date('d-m-Y') }}</td>
+                {% else %}
+                    <td> ...</td>
+                {% endif %}
+                {% if game.finishDate != null %}
+                    <td>{{ game.finishDate|date('d-m-Y') }}</td>
+                {% else %}
+                    <td> ...</td>
+                {% endif %}
+                {% if game.gameTime != null %}
+                    <td>{{ game.gameTime|stringTime }}</td>
+                {% else %}
+                    <td> ...</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
