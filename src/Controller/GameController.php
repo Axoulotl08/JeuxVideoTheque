@@ -10,6 +10,7 @@ use App\Form\ImportGameType;
 use App\Form\SearchGamesType;
 use App\Repository\ConsoleRepository;
 use App\Repository\GameRepository;
+use App\Repository\SessionRepository;
 use App\Repository\StateRepository;
 use App\Service\ImportGameListCSV;
 use App\Service\TimeService;
@@ -94,6 +95,27 @@ class GameController extends AbstractController
         }
         return $this->render("game/modify.html.twig", [
             'gameModify' => $gameForm->createView()
+        ]);
+    }
+
+    #[Route('/detail/{id}', name:'_detail_id', requirements:['id'=>'\d+'])]
+    public function gameDetail(Request $request, 
+                            GameRepository $gameRepository, 
+                            int $id, 
+                            EntityManagerInterface $entityManager, 
+                            TimeService $timeService, 
+                            SessionRepository $sessionRepository) {
+
+        $game = $entityManager->getRepository(Game::class)->find($id);
+        $sessions = $sessionRepository->getLastSessionOfAGame($id);
+        if(count($sessions) != 0)
+            $sessoinTime = $sessions[0]->getSessionTime();
+        else
+            $sessoinTime = 0;
+        //dd($sessions[0]);        
+        return $this->render("game/detail.html.twig", [
+            'game' => $game,
+            'lastSessionTime' => $sessoinTime
         ]);
     }
 

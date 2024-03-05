@@ -3,12 +3,17 @@
 {% block title %}Hello GameController!{% endblock %}
 
 {% block body %}
-
+    <div class="searchBar">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button>Trier</button>
+        {{ form_end(form) }}
+    </div>
     <table>
         <thead>
         <td>Date de session</td>
-        <td>Console</td>
         <td>Jeu</td>
+        <td>Console</td>
         <td>Durée</td>
         </thead>
         {% for session in sessions %}

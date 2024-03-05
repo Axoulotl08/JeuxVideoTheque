@@ -10,11 +10,6 @@ use Doctrine\DBAL\Types\IntegerType;
 class SearchDataSessions
 {
     /**
-     * @var Console
-     */
-    public $console;
-
-    /**
      * @var Game
      */
     public $game;

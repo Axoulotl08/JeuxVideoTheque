@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Data\SearchDataSessions;
 use App\Entity\Game;
 use App\Entity\Session;
 use App\Entity\State;
+use App\Form\SearchSessionTypes;
 use App\Form\SessionType;
 use App\Repository\SessionRepository;
 use App\Service\TimeService;
@@ -18,10 +20,24 @@ class SessionController extends AbstractController
 {
 
     #[Route('/list', name: '_list')]
-    public function list(SessionRepository $sessionRepository):Response{
-        $sessions = $sessionRepository->findAll();
+    public function list(SessionRepository $sessionRepository,
+                         Request $request,
+                         TimeService $timeService):Response{
+
+        $data = new SearchDataSessions();
+        $formFilter = $this->createForm(SearchSessionTypes::class, $data);
+        $formFilter->handleRequest($request);
+        if($formFilter['durationTimeMinText']->getData() !== null){
+            $data->durationMin = $timeService->convertStringTimetoInt($formFilter['durationTimeMinText']->getData());
+        }
+        if($formFilter['durationTimeMaxText']->getData() !== null){
+            $data->durationMax = $timeService->convertStringTimetoInt($formFilter['durationTimeMaxText']->getData());
+        }
+        dump($data);
+        $sessions = $sessionRepository->getSessionFormSearchData($data);
         return $this->render('session/list.html.twig', [
-            'sessions' => $sessions
+            'sessions' => $sessions,
+            'form' => $formFilter->createView()
         ]);
     }
 

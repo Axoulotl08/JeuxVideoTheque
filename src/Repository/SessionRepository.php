@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Data\SearchDataSessions;
 use App\Entity\Session;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -37,6 +38,71 @@ class SessionRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function getSessionFormSearchData(SearchDataSessions $data){
+        $query = $this->createQueryBuilder('session')
+            ->leftJoin('session.game', 'game')
+            ->select('session', 'game');
+        if(!empty($data->game)){
+            $query = $query
+                ->orWhere('game.id = :title')
+                ->setParameter('title', $data->game->getId());
+        }
+        if(!empty($data->sessionDateBetweenStart)){
+            $query = $query
+                ->orWhere('session.date > :startDate')
+                ->setParameter(':startDate', $data->sessionDateBetweenStart);
+        }
+        if(!empty($data->sessionDateBetweenEnd)){
+            $query = $query
+                ->orWhere('session.date < :endDate')
+                ->setParameter(':endDate', $data->sessionDateBetweenEnd);
+        }
+        if(!empty($data->durationMin)){
+            $query = $query
+                ->orWhere('session.sessionTime > :durationMin')
+                ->setParameter('durationMin', $data->durationMin);
+        }
+        if(!empty($data->durationMax)){
+            $query = $query
+                ->orWhere('session.sessionTime > :durationMax')
+                ->setParameter('durationMax', $data->durationMax);
+        }
+        $query = $query->orderBy('session.date', 'ASC');
+        return $query->getQuery()->getResult();
+    }
+
+    /**
+     * Return the last session of the game
+     * id : Identifier of the game
+     */
+    public function getLastSessionOfAGame(int $id){
+
+
+        return $this->createQueryBuilder('session')
+            ->leftJoin('session.game', 'game')
+            ->select('session', 'game')
+            ->andWhere('game.id = :id')
+            ->setParameter(':id', $id)
+            ->orderBy('session.date', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()->getResult();
+    }
+
+    /**
+     * 
+     */
+    public function getSessionTimeForLastSevenDays(){
+        $startDate = strtotime("-7 day");  
+        $startDate = date("y-M-d", $startDate);
+        
+        return $this->createQueryBuilder('session')
+            ->leftJoin('session.game', 'game')
+            ->select('session', 'game', 'sum(session.sessionTime')
+            ->andWhere('session.date >= :startDate')
+            ->setParameter(':startDate', $startDate)
+            ->getQuery()->getResult();
     }
 
 //    /**

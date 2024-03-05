@@ -17,36 +17,30 @@ class SearchSessionTypes extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('console', EntityType::class, [
-                'label' => 'Console',
-                'required' => false,
-                'class' => Console::class,
-                'choice_label' => 'name'
-            ])
             ->add('game', EntityType::class, [
                 'label' => 'Jeu',
                 'required' => false,
                 'class' => Game::class,
                 'choice_label' => 'name'
             ])
-            ->add('$sessionDateBetweenStart', DateType::class, [
+            ->add('sessionDateBetweenStart', DateType::class, [
                 'label' => 'Date de début',
                 'html5' => true,
                 'widget' => 'single_text',
                 'required' => false
             ])
-            ->add('$sessionDateBetweenStart',DateType::class, [
+            ->add('sessionDateBetweenEnd',DateType::class, [
                 'label' => 'Date de fin',
                 'html5' => true,
                 'widget' => 'single_text',
                 'required' => false
             ])
-            ->add('sessionDateBetweenStartText', TextType::class, [
+            ->add('durationTimeMinText', TextType::class, [
                 'label' => 'Temps de jeu mini',
                 'required' => false,
                 'mapped' => false
             ])
-            ->add('sessionDateBetweenEndText', TextType::class, [
+            ->add('durationTimeMaxText', TextType::class, [
                 'label' => 'Temps de jeu maxi',
                 'required' => false,
                 'mapped' => false

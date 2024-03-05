@@ -3,7 +3,7 @@
 {% block title %}Hello GameController!{% endblock %}
 
 {% block body %}
-    <div>
+    <div class="searchBar">
         {{ form_start(formFilter) }}
         {{ form_widget(formFilter) }}
         <button>Trier</button>
@@ -22,10 +22,11 @@
             <td>Date de début</td>
             <td>Date de fin</td>
             <td>Temps de jeu</td>
+            <td>Editer</td>
         </thead>
         {% for game in games %}
             <tr>
-                <td><a href="{{ path('game_id', {id:game.id}) }}">{{ game.name }}</a></td>
+                <td><a href="{{ path('game_detail_id', {id:game.id}) }}">{{ game.name }}</a></td>
                 <td>{{ game.console.name }}</td>
                 <td>{{ game.state.name }}</td>
                 {% if game.boxGame == 1 %}
@@ -63,6 +64,7 @@
                 {% else %}
                     <td> ...</td>
                 {% endif %}
+                <td><a href="{{ path('game_id', {id:game.id}) }}"><i class="fa-regular fa-pen-to-square"></i></a></td>
             </tr>
         {% endfor %}
     </table>

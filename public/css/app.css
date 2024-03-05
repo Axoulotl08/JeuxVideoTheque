@@ -5,6 +5,8 @@ body{
     background-position: center center;
     color: #EEE;
     font-family: 'Crimson Text', serif;
+    position: center;
+    width: 100%;
 }
 
 .jeu-list {
@@ -111,6 +113,9 @@ main {
     padding: 10px;
 }
 
+.searchBar{
+    display: flex;
+}
 
 .ajout-jeu{
     display: inline;
