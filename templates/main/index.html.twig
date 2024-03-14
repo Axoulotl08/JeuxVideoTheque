@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MainController!{% endblock %}
+{% block title %}Bienvenue sur la ludothèque !{% endblock %}
 
 {% block body %}
 <style>
@@ -9,9 +9,46 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>Bienvenue !</h1>
     <div>
-        TODO ! HOMEPAGE !!
+        <h2>Statistiques sur les 7 derniers jours    : </h2>
+        {% if (playTime == 0 and playTimeBefore != 0)%}
+            <div> Pas de session sur les 7 derniers jours</div>
+            <div> (Semaine précèdente : {{ playTimeBefore|stringTime }})
+        {% elseif (playTime == 0 and playTimeBefore == 0) %}
+            <div> Pas de session sur les 14 derniers jours</div>
+        {% else %}
+            <div> Temps de jeu : {{ playTime|stringTime}}
+            {% if difference > 0 %}
+                <i class="fa-solid fa-arrow-up"></i>
+            {% elseif difference == 0 %}
+                <i class="fa-solid fa-equals"></i>
+            {% else %}
+                <i class="fa-solid fa-arrow-down"></i>
+            {% endif %}
+            </div> 
+            
+            <div> (Semaine précèdente : {{ playTimeBefore|stringTime }})
+            <div> Nombre de sessions : {{ nbSessions }}</div>   
+            <div>
+                <table>
+                <thead>
+                <td>Date de session</td>
+                <td>Jeu</td>
+                <td>Console</td>
+                <td>Durée</td>
+                </thead>
+                {% for session in sessions %}
+                    <tr>
+                        <td>{{ session.date| date('d-m-Y') }}</td>
+                        <td><a href="{{ path('game_detail_id', {id:session.game.id}) }}">{{ session.game.name }}</a></td>
+                        <td>{{ session.game.console.name }}</td>
+                        <td>{{ session.sessionTime|stringTime }}</td>
+                    </tr>
+                {% endfor %}
+                </table>
+            </div>
+        {% endif%}
     </div>
 </div>
 {% endblock %}

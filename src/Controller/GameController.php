@@ -103,7 +103,6 @@ class GameController extends AbstractController
                             GameRepository $gameRepository, 
                             int $id, 
                             EntityManagerInterface $entityManager, 
-                            TimeService $timeService, 
                             SessionRepository $sessionRepository) {
 
         $game = $entityManager->getRepository(Game::class)->find($id);

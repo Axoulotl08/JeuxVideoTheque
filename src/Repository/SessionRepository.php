@@ -75,7 +75,7 @@ class SessionRepository extends ServiceEntityRepository
 
     /**
      * Return the last session of the game
-     * id : Identifier of the game
+     * @param int Identifier of the game
      */
     public function getLastSessionOfAGame(int $id){
 
@@ -91,19 +91,53 @@ class SessionRepository extends ServiceEntityRepository
     }
 
     /**
-     * 
+     * Return the sessionTime of the last 7 days.
+     * @return array array with the sum of the last session's time
      */
     public function getSessionTimeForLastSevenDays(){
         $startDate = strtotime("-7 day");  
-        $startDate = date("y-M-d", $startDate);
+        $startDate = date("y-m-d", $startDate);
         
         return $this->createQueryBuilder('session')
             ->leftJoin('session.game', 'game')
-            ->select('session', 'game', 'sum(session.sessionTime')
+            ->select('sum(session.sessionTime) as time')
+            ->andWhere('session.date >= :startDate')
+            ->setParameter(':startDate', $startDate)
+            ->getQuery()->getResult();  
+    }
+
+    /**
+     * Return the sessions of the last 7 days.
+     * @return array array with the sessions of the last seven days
+     */
+    public function getSessionForLastSevenDays(){
+        $startDate = strtotime("-7 day");  
+        $startDate = date("y-m-d", $startDate);
+        
+        return $this->createQueryBuilder('session')
+            ->leftJoin('session.game', 'game')
+            ->select('session', 'game')
             ->andWhere('session.date >= :startDate')
             ->setParameter(':startDate', $startDate)
             ->getQuery()->getResult();
     }
+
+    public function getSessionTimeForSevenDaysBefore(){
+        $startDate = strtotime("-14 day");  
+        $startDate = date("y-m-d", $startDate);
+        $endDate = strtotime("-7 day");
+        $endDate = date("y-m-d", $endDate);
+        
+        return $this->createQueryBuilder('session')
+            ->leftJoin('session.game', 'game')
+            ->select('sum(session.sessionTime) as time')
+            ->andWhere('session.date >= :startDate')
+            ->setParameter(':startDate', $startDate)
+            ->andWhere('session.date < :endDate')
+            ->setParameter(':endDate', $endDate)
+            ->getQuery()->getResult();
+    }
+
 
 //    /**
 //     * @return Session[] Returns an array of Session objects

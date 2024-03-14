@@ -64,7 +64,7 @@
         <h4> Statistique sur le jeu</h4>
         <div>
             {% if lastSessionTime != 0 %}
-                Temps de jeu sur la dernière session : {{session.sessionTime|stringTime}}
+                Temps de jeu sur la dernière session : {{ lastSessionTime|stringTime }}
             {% else %}
                 Pas de session trouvé pour ce jeu
             {% endif %}
